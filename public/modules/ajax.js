@@ -8,7 +8,7 @@ const noop = () => {};
 /**
  * Requests class for all server-api request work.
  */
-export class Ajax {
+class Ajax {
     /**
      * Get data from server
      * @param {string, function} url -- url where Get method is used
@@ -28,12 +28,16 @@ export class Ajax {
             .then((response) => response.json().then((data) => {
                 if (response.ok) {
                     resolve(data);
-                } else {
-                    throw data.message;
+
+                    return data;
                 }
+
+                throw data.message;
             }))
             .catch((error) => {
                 reject(error);
+
+                throw error;
             });
     }
 
@@ -62,12 +66,18 @@ export class Ajax {
             .then((response) => response.json().then((data) => {
                 if (response.ok) {
                     resolve(data);
-                } else {
-                    throw data.message;
+
+                    return data;
                 }
+
+                throw data.message;
             }))
             .catch((error) => {
                 reject(error);
+
+                throw error;
             });
     }
 }
+
+export default new Ajax();
